@@ -9,11 +9,11 @@ public class VisibilityAtomicityDemo {
 
     public static void main(String[] args) throws InterruptedException {
         Thread waiter = new Thread(() -> {
-            System.out.println("Waiter: esperando flag=true...");
+            System.out.println("RGG - Waiter: esperando flag=true...");
             while (!flag) {
                 // busy-wait: en producción se evitaría; aquí es didáctico
             }
-            System.out.println("Waiter: detectó flag=true");
+            System.out.println("RGG - Waiter: detectó flag=true");
         }, "Waiter");
         Thread setter = new Thread(() -> {
             try {
@@ -22,7 +22,7 @@ public class VisibilityAtomicityDemo {
                 Thread.currentThread().interrupt();
             }
             flag = true;
-            System.out.println("Setter: cambió flag=true");
+            System.out.println("RGG - Setter: cambió flag=true");
         }, "Setter");
         waiter.start();
         setter.start();
@@ -45,8 +45,8 @@ public class VisibilityAtomicityDemo {
         t2.start();
         t1.join();
         t2.join();
-        System.out.println("counter (NO atómico)       = " + counter);
-        System.out.println("atomicCounter (ATÓMICO)    = " + atomicCounter.get());
-        System.out.println("Esperado (ideal)           = 200000");
+        System.out.println("RGG - counter (NO atómico)       = " + counter);
+        System.out.println("RGG - atomicCounter (ATÓMICO)    = " + atomicCounter.get());
+        System.out.println("RGG - Esperado (ideal)           = 200000");
     }
 }
