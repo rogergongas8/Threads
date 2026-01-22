@@ -2,6 +2,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+
 public class LockBufferSimpleWithRelativeTime {
     static class BoundedBuffer {
         private final Queue<Integer> queue = new ArrayDeque<>();
