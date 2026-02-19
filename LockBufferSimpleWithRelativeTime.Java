@@ -12,47 +12,51 @@ public class LockBufferSimpleWithRelativeTime {
         private final Condition notEmpty = lock.newCondition();
         // Tiempo de inicio del programa
         private final long startTime;
+
         public BoundedBuffer(int capacity, long startTime) {
             this.capacity = capacity;
             this.startTime = startTime;
         }
+
         private long elapsed() {
             return System.currentTimeMillis() - startTime;
         }
+
         public void put(int item) throws InterruptedException {
             lock.lock();
             try {
-                System.out.println("[" + elapsed() + " ms] [Producer] intenta producir "
+                System.out.println(" RGG - [" + elapsed() + " ms] [Producer] intenta producir "
                         + item + " (buffer=" + queue.size() + ")");
                 while (queue.size() == capacity) {
-                    System.out.println("[" + elapsed() + " ms] [Producer] BLOQUEADO para item "
+                    System.out.println(" RGG - [" + elapsed() + " ms] [Producer] BLOQUEADO para item "
                             + item + " (buffer FULL)");
                     notFull.await();
-                    System.out.println("[" + elapsed() + " ms] [Producer] DESPIERTA para item "
+                    System.out.println(" RGG - [" + elapsed() + " ms] [Producer] DESPIERTA para item "
                             + item + " (buffer=" + queue.size() + ")");
                 }
                 queue.add(item);
-                System.out.println("[" + elapsed() + " ms] [Producer] produjo "
+                System.out.println(" RGG - [" + elapsed() + " ms] [Producer] produjo "
                         + item + " (buffer=" + queue.size() + ")");
                 notEmpty.signal();
             } finally {
                 lock.unlock();
             }
         }
+
         public int take() throws InterruptedException {
             lock.lock();
             try {
-                System.out.println("[" + elapsed() + " ms] [Consumer] intenta consumir "
+                System.out.println(" RGG - [" + elapsed() + " ms] [Consumer] intenta consumir "
                         + "(buffer=" + queue.size() + ")");
                 while (queue.isEmpty()) {
-                    System.out.println("[" + elapsed() + " ms] [Consumer] BLOQUEADO "
+                    System.out.println(" RGG - [" + elapsed() + " ms] [Consumer] BLOQUEADO "
                             + "(buffer EMPTY)");
                     notEmpty.await();
-                    System.out.println("[" + elapsed() + " ms] [Consumer] DESPIERTA "
+                    System.out.println(" RGG - [" + elapsed() + " ms] [Consumer] DESPIERTA "
                             + "(buffer=" + queue.size() + ")");
                 }
                 int item = queue.remove();
-                System.out.println("[" + elapsed() + " ms] [Consumer] consumió "
+                System.out.println(" RGG - [" + elapsed() + " ms] [Consumer] consumió "
                         + item + " (buffer=" + queue.size() + ")");
                 notFull.signal();
                 return item;
@@ -61,6 +65,7 @@ public class LockBufferSimpleWithRelativeTime {
             }
         }
     }
+
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         BoundedBuffer buffer = new BoundedBuffer(2, startTime);
@@ -68,7 +73,7 @@ public class LockBufferSimpleWithRelativeTime {
             try {
                 for (int i = 1; i <= 3; i++) {
                     buffer.put(i);
-                    Thread.sleep(1500);
+                    Thread.sleep(10);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -79,7 +84,7 @@ public class LockBufferSimpleWithRelativeTime {
                 Thread.sleep(50);
                 for (int i = 1; i <= 3; i++) {
                     buffer.take();
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

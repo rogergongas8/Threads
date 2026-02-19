@@ -3,24 +3,24 @@ public class DeadlockDemo {
     private static final Object LOCK_B = new Object();
 
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("=== Parte 1: Provocar deadlock ===");
+        System.out.println("RGG - === Parte 1: Provocar deadlock ===");
         Thread t1 = new Thread(() -> lockInOrder("T1", LOCK_A, LOCK_B), "T1");
         Thread t2 = new Thread(() -> lockInOrder("T2", LOCK_B, LOCK_A), "T2"); // orden inverso
-        t1.start();
-        t2.start();
+        // t1.start();
+        // t2.start();
         // Esperamos un poco para "dar tiempo" a que ocurra el deadlock
         Thread.sleep(800);
-        System.out.println("\nSi el programa se queda bloqueado aquí, es el deadlock.");
-        System.out.println("Puedes parar y ejecutar solo la parte 2 si lo prefieres.\n");
+        System.out.println("\nRGG - Si el programa se queda bloqueado aquí, es el deadlock.");
+        System.out.println("RGG - Puedes parar y ejecutar solo la parte 2 si lo prefieres.\n");
         // === Parte 2: Corregido ===
-        System.out.println("=== Parte 2: Corregir con orden global ===");
+        System.out.println("RGG - === Parte 2: Corregir con orden global ===");
         Thread c1 = new Thread(() -> lockGlobalOrder("C1"), "C1");
         Thread c2 = new Thread(() -> lockGlobalOrder("C2"), "C2");
         c1.start();
         c2.start();
         c1.join();
         c2.join();
-        System.out.println("Corrección completada (sin deadlock).");
+        System.out.println("RGG - Corrección completada (sin deadlock).");
     }
 
     static void lockInOrder(String name, Object first, Object second) {
@@ -37,7 +37,8 @@ public class DeadlockDemo {
     static void lockGlobalOrder(String name) {
         synchronized (LOCK_A) {
             System.out.println(name + " adquirió A");
-            sleep(100);
+            sleep(500);
+
             synchronized (LOCK_B) {
                 System.out.println(name + " adquirió B");
             }

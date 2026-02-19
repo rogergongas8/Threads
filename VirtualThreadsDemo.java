@@ -1,3 +1,4 @@
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -5,12 +6,12 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class VirtualThreadsDemo {
-    static final int TASKS = 10_000;
+    static final int TASKS = 100_000;
 
     public static void main(String[] args) throws Exception {
-        System.out.println("=== Platform threads (pool) ===");
+        System.out.println(" RGG - === Platform threads (pool) ===");
         runWithPlatformThreads();
-        System.out.println("\n=== Virtual threads ===");
+        System.out.println("\n RGG - === Virtual threads ===");
         runWithVirtualThreads();
     }
 
@@ -33,7 +34,7 @@ public class VirtualThreadsDemo {
             f.get();
         exec.shutdown();
         Instant end = Instant.now();
-        System.out.println("Tiempo platform(pool): " + Duration.between(start, end).toMillis() + " ms");
+        System.out.println(" RGG - Tiempo platform(pool): " + Duration.between(start, end).toMillis() + " ms");
     }
 
     static void runWithVirtualThreads() throws Exception {
@@ -55,6 +56,6 @@ public class VirtualThreadsDemo {
             f.get();
         exec.shutdown();
         Instant end = Instant.now();
-        System.out.println("Tiempo virtual: " + Duration.between(start, end).toMillis() + " ms");
+        System.out.println(" RGG - Tiempo virtual: " + Duration.between(start, end).toMillis() + " ms");
     }
 }

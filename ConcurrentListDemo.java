@@ -1,17 +1,18 @@
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConcurrentListDemo {
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("=== Caso 1: ArrayList (posible error) ===");
+        System.out.println("RGG - === Caso 1: ArrayList (posible error) ===");
         demoWithList(new ArrayList<>());
-        System.out.println("\n=== Caso 2: CopyOnWriteArrayList (correcto) ===");
+        System.out.println("\nRGG - === Caso 2: CopyOnWriteArrayList (correcto) ===");
         demoWithList(new CopyOnWriteArrayList<>());
     }
 
     static void demoWithList(List<Integer> list) throws InterruptedException {
-        int threads = 10;
+        int threads = 20;
         int addsPerThread = 10_000;
         Thread[] ts = new Thread[threads];
         for (int i = 0; i < threads; i++) {
@@ -26,7 +27,7 @@ public class ConcurrentListDemo {
             t.start();
         for (Thread t : ts)
             t.join();
-        System.out.println("Tamaño esperado = " + (threads * addsPerThread));
-        System.out.println("Tamaño real     = " + list.size());
+        System.out.println("RGG - Tamaño esperado = " + (threads * addsPerThread));
+        System.out.println("RGG - Tamaño real     = " + list.size());
     }
 }

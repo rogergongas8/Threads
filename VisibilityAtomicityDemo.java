@@ -1,3 +1,4 @@
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class VisibilityAtomicityDemo {
@@ -30,7 +31,7 @@ public class VisibilityAtomicityDemo {
         setter.join();
         // EXTRA: contador no atómico vs AtomicInteger
         Thread t1 = new Thread(() -> {
-            for (int i = 0; i < 100_000; i++) {
+            for (int i = 0; i < 200_000_000; i++) {
                 counter++; // race condition
                 atomicCounter.incrementAndGet();
             }

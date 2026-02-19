@@ -48,13 +48,13 @@ public class ForkJoinSumDemo {
         long t2 = System.nanoTime();
         // Paralelo Fork/Join
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        int threshold = 200_000; // ajustable
+        int threshold = 1_000; // ajustable
         long t3 = System.nanoTime();
         long par = pool.invoke(new SumTask(arr, 0, arr.length, threshold));
         long t4 = System.nanoTime();
-        System.out.println("Suma secuencial = " + seq);
-        System.out.println("Suma paralela   = " + par);
-        System.out.printf("Tiempo secuencial: %.2f ms%n", (t2 - t1) / 1e6);
-        System.out.printf("Tiempo paralelo:   %.2f ms%n", (t4 - t3) / 1e6);
+        System.out.println("RGG - Suma secuencial = " + seq);
+        System.out.println("RGG - Suma paralela   = " + par);
+        System.out.printf("RGG - Tiempo secuencial: %.2f ms%n", (t2 - t1) / 1e6);
+        System.out.printf("RGG - Tiempo paralelo:   %.2f ms%n", (t4 - t3) / 1e6);
     }
 }

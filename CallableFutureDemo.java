@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +15,7 @@ public class CallableFutureDemo {
                 Callable<Integer> task = () -> {
                     int value = rnd.nextInt(1000);
                     String tname = Thread.currentThread().getName();
-                    System.out.println("Tarea " + taskId + " (" + tname + ") -> " + value);
+                    System.out.println(" RGG -Tarea " + taskId + " (" + tname + ") -> " + value);
                     Thread.sleep(200 + rnd.nextInt(300));
                     return value;
                 };
@@ -29,10 +30,10 @@ public class CallableFutureDemo {
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 } catch (ExecutionException e) {
-                    System.out.println("Error en tarea: " + e.getCause());
+                    System.out.println("RGG - Error en tarea: " + e.getCause());
                 }
             }
-            System.out.println("Mayor número = " + max);
+            System.out.println("RGG - Mayor número = " + max);
         } finally {
             executor.shutdown();
         }

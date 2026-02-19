@@ -1,3 +1,4 @@
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -7,15 +8,16 @@ public class ThreadPoolDemo {
         ExecutorService executor = Executors.newFixedThreadPool(3);
         try {
             for (int i = 1; i <= 10; i++) {
+                System.out.println("RGG - Tarea " + i + " creada");
                 final int taskId = i;
                 executor.submit(() -> {
                     String tname = Thread.currentThread().getName();
-                    System.out.println("Tarea " + taskId + " ejecutada por " + tname);
+                    System.out.println("RGG - Tarea " + taskId + " ejecutada por " + tname);
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
-                        System.out.println("Tarea " + taskId + " interrumpida");
+                        System.out.println("RGG - Tarea " + taskId + " interrumpida");
                     }
                 });
             }
@@ -31,6 +33,6 @@ public class ThreadPoolDemo {
             executor.shutdownNow();
             Thread.currentThread().interrupt();
         }
-        System.out.println("Executor cerrado correctamente.");
+        System.out.println("RGG - Executor cerrado correctamente.");
     }
 }
